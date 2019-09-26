@@ -1,0 +1,25 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install asdf
+        run: |
+          git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
+
+      - name: Test the plugin
+        run: |
+          . $HOME/asdf/asdf.sh
+          asdf plugin-test 1password $GITHUB_WORKSPACE 'op --version' 0.6.2
+
