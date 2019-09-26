@@ -1,5 +1,7 @@
 **asdf-1password**—_1password plugin for [asdf version manager](https://asdf-vm.com)_
 
+[![Build Status](https://github.com/samtgarson/asdf-1password/workflows/CI/badge.svg)](https://github.com/samtgarson/asdf-1password/actions)
+
 ## Install
 
 ```
