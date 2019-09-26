@@ -9,6 +9,13 @@ TMPDIR=${TMPDIR:-/tmp}
 [ -n "$ASDF_INSTALL_PATH" ] || (>&2 echo 'Missing ASDF_INSTALL_PATH' && exit 1)
 (which unzip >/dev/null) || (>&2 echo 'unzip is needed to install 1password' && exit 1)
 
+successfully() {
+  $*
+  if [[ $? != 0 ]]; then
+    exit 1
+  fi
+}
+
 install_op() {
   local install_type=$1
   local version=$2
@@ -22,8 +29,9 @@ install_op() {
   local zip_path="${bin_install_path}/op.zip"
   local sig_path="${bin_install_path}/op.sig"
   echo "Downloading op from ${download_url}"
-  curl -s "$download_url" -o "$zip_path"
-  unzip $zip_path -d $bin_install_path
+
+  successfully curl -s "$download_url" -o "$zip_path"
+  successfully unzip $zip_path -d $bin_install_path
   rm $zip_path $sig_path
   chmod +x $bin_path
 }
