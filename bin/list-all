@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 echo $(
-  curl -s https://app-updates.agilebits.com/product_history/CLI \
-    | sed -n '/<h3/{n;p;}' \
-    | sed 's/^[ \t]*//'
+  curl -s https://app-updates.agilebits.com/product_history/CLI |
+    sed -n '/<h3/{n;p;}' |
+    sed 's/^[ \t]*//' |
+    sort --version-sort
 )
